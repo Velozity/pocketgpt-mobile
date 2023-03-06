@@ -18,6 +18,19 @@ export default function ChatMessagesList({
   const [refreshing, setRefreshing] = useState(false);
 
   const ChatBubble = React.memo(({ message, isHuman, theme }: any) => {
+    if (message.type === "convoStart") {
+      return (
+        <View>
+          <Text
+            style={{ textAlign: "center", color: theme.palette.text.hintColor }}
+          >
+            Conversation started{" "}
+            {parseIsoTimestampToChatTime(message.createdAt)}
+          </Text>
+        </View>
+      );
+    }
+
     const containerStyle = [
       styles.chatBubbleContainer,
       isHuman
