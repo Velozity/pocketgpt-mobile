@@ -9,12 +9,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { useAccount } from "@providers/AccountProvider";
 import Toast from "react-native-root-toast";
+import WebAPIClient from "@services/WebAPIClient";
 
-const Login = ({ navigation }: any) => {
+const Register = ({ navigation }: any) => {
   const { theme } = useTheme();
-  const { login } = useAccount();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -58,7 +57,7 @@ const Login = ({ navigation }: any) => {
       fontSize: 18,
       fontWeight: "bold",
     },
-    buttonSignUp: {
+    buttonSignIn: {
       width: "80%",
       backgroundColor: theme.palette.secondary,
       borderRadius: 25,
@@ -67,7 +66,7 @@ const Login = ({ navigation }: any) => {
       alignItems: "center",
       justifyContent: "center",
     },
-    buttonSignUpText: {
+    buttonSignInText: {
       color: theme.palette.text.primary,
       fontSize: 18,
       fontWeight: "bold",
@@ -82,10 +81,17 @@ const Login = ({ navigation }: any) => {
     setPassword(text);
   };
 
-  const handleLogin = () => {
-    login(email, password).then((res) => {
+  const handleRegister = () => {
+    const api = new WebAPIClient();
+
+    api.register(email, password).then((res) => {
       if (res.error) {
         Toast.show(res.error);
+      }
+
+      if (res.success) {
+        Toast.show("You may login.");
+        navigation.navigate("Login");
       }
     });
   };
@@ -114,16 +120,16 @@ const Login = ({ navigation }: any) => {
           secureTextEntry
         />
       </View>
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
+      <TouchableOpacity style={styles.button} onPress={handleRegister}>
+        <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        style={styles.buttonSignUp}
+        style={styles.buttonSignIn}
         onPress={() => {
-          navigation.navigate("Register");
+          navigation.navigate("Login");
         }}
       >
-        <Text style={styles.buttonSignUpText}>Need an account?</Text>
+        <Text style={styles.buttonSignInText}>Already have an account?</Text>
       </TouchableOpacity>
       <StatusBar
         style={theme ? (theme.mode === "dark" ? "light" : "dark") : "auto"}
@@ -132,4 +138,4 @@ const Login = ({ navigation }: any) => {
   );
 };
 
-export default Login;
+export default Register;

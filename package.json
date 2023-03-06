@@ -30,7 +30,6 @@
     "react": "18.2.0",
     "react-native": "0.71.3",
     "react-native-gesture-handler": "~2.9.0",
-    "react-native-google-pay": "^2.1.0",
     "react-native-iap": "^12.7.4",
     "react-native-inverted-flat-list": "^1.0.3",
     "react-native-invertible-scroll-view": "^2.0.0",

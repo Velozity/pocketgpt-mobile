@@ -115,6 +115,7 @@ android {
 
     namespace 'com.velozity.pocketgpt'
     defaultConfig {
+missingDimensionStrategy "store", "play"
         applicationId 'com.velozity.pocketgpt'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

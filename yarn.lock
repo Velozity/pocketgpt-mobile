@@ -6294,11 +6294,6 @@ react-native-gesture-handler@~2.9.0:
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
-react-native-google-pay@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/react-native-google-pay/-/react-native-google-pay-2.1.0.tgz"
-  integrity sha512-MAz0pKx3tZLkdhEteG/p1eZMO9I6MREth3TZnxw/puAg90vFQVP6e26dIph5IJlIhaXEOdchFZDHnioHf48gUA==
-
 react-native-gradle-plugin@^0.71.15:
   version "0.71.15"
   resolved "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.71.15.tgz"
@@ -6306,7 +6301,7 @@ react-native-gradle-plugin@^0.71.15:
 
 react-native-iap@^12.7.4:
   version "12.7.4"
-  resolved "https://registry.yarnpkg.com/react-native-iap/-/react-native-iap-12.7.4.tgz#0b33db0b656ce0f6db09b1e5988f4997954183e7"
+  resolved "https://registry.npmjs.org/react-native-iap/-/react-native-iap-12.7.4.tgz"
   integrity sha512-fTtVkx2DKuV4Z3MCQi9jy3vwq9vZOUOoBnXpzmgNwco34z1aLFYo261T6rc7ysDpBVe8iNx6CO9VG9hAd1WwhA==
   dependencies:
     "@expo/config-plugins" "^5.0.4"

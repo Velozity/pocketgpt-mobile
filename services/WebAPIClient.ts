@@ -19,7 +19,10 @@ export default class WebAPIClient {
   private accessToken?: string;
 
   constructor(accessToken?: string) {
-    this.baseURL = "http://192.168.0.11:3000/api";
+    this.baseURL =
+      process.env.NODE_ENV === "development"
+        ? "http://192.168.0.11:3000/api"
+        : "https://pocketgpt.velozity.dev/api";
     this.accessToken = accessToken;
   }
 
@@ -106,6 +109,21 @@ export default class WebAPIClient {
 
   async login(email: string, password: string): Promise<ILoginResponse> {
     const response: ILoginResponse = await this.post("/auth/credentials", {
+      email,
+      password,
+    }).catch((e) => e);
+
+    if (response) {
+      return response;
+    } else {
+      return {
+        error: "Please try again soon.",
+      };
+    }
+  }
+
+  async register(email: string, password: string): Promise<ILoginResponse> {
+    const response: ILoginResponse = await this.post("/signup", {
       email,
       password,
     }).catch((e) => e);

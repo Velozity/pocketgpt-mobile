@@ -20,6 +20,8 @@ import {
 } from "@react-navigation/stack";
 import Splash from "@app/Splash";
 import FAQ from "@app/FAQ";
+import Register from "@app/Register";
+import { TouchableOpacity } from "react-native";
 
 const Stack = createStackNavigator();
 
@@ -37,6 +39,7 @@ function HomeStack() {
 
 function HomeDrawerContent(props: any) {
   const { theme, toggleTheme } = useTheme();
+  const { logout } = useAccount();
 
   const styles = StyleSheet.create({
     container: {
@@ -79,6 +82,15 @@ function HomeDrawerContent(props: any) {
           <Text style={styles.label}>Dark mode</Text>
           <Switch value={theme.mode === "dark"} onValueChange={toggleTheme} />
         </View>
+        <TouchableOpacity
+          onPress={() => {
+            logout();
+          }}
+        >
+          <View style={styles.row}>
+            <Text style={styles.label}>Sign out</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </DrawerContentScrollView>
   );
@@ -113,7 +125,18 @@ export default function Navigator() {
           />
         </>
       ) : (
-        <Stack.Screen name="Login" component={Login} />
+        <>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Register"
+            component={Register}
+            options={{ headerShown: false }}
+          />
+        </>
       )}
     </Stack.Navigator>
   );
