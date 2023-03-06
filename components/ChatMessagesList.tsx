@@ -1,9 +1,9 @@
+import React, { useState, useMemo } from "react";
 import { useTheme } from "@providers/ThemeProvider";
 import {
   parseChatMessageTimestamp,
   parseIsoTimestampToChatTime,
 } from "@utils/parsers";
-import { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import InvertedFlatList from "react-native-inverted-flat-list";
 
@@ -16,66 +16,8 @@ export default function ChatMessagesList({
 }) {
   const { theme } = useTheme();
   const [refreshing, setRefreshing] = useState(false);
-  const styles = StyleSheet.create({
-    messagesContainer: {
-      width: "100%",
-      paddingTop: 16,
-      paddingBottom: 8,
-    },
-    chatBubbleContainer: {
-      maxWidth: "80%",
-      padding: 8,
-      borderRadius: 12,
-      marginHorizontal: 10,
-      marginTop: 8,
-      paddingHorizontal: 10,
-      marginBottom: 8,
-    },
-    outgoingChatBubbleContainer: {
-      backgroundColor: theme.palette.primary,
-      alignSelf: "flex-end",
-    },
-    incomingChatBubbleContainer: {
-      alignSelf: "flex-start",
-      backgroundColor: theme.palette.secondary,
-    },
-    chatBubbleText: {
-      color: theme.palette.text.primary,
-      fontSize: 16,
-    },
-    outgoingChatBubbleText: {
-      color: theme.palette.text.primary,
-    },
-    incomingChatBubbleText: {
-      color: theme.palette.text.primary,
-    },
-    chatBubbleTimestamp: {
-      fontSize: 12,
-      alignSelf: "flex-end",
-      marginTop: 2,
-    },
-    outgoingChatBubbleTimestamp: {
-      color: theme.palette.text.secondary,
-    },
-    incomingChatBubbleTimestamp: {
-      color: theme.palette.text.hintColor,
-    },
-  });
 
-  const ChatBubble = ({ message, isHuman }: any) => {
-    if (message.type === "convoStart") {
-      return (
-        <View>
-          <Text
-            style={{ textAlign: "center", color: theme.palette.text.hintColor }}
-          >
-            Conversation started{" "}
-            {parseIsoTimestampToChatTime(message.createdAt)}
-          </Text>
-        </View>
-      );
-    }
-
+  const ChatBubble = React.memo(({ message, isHuman, theme }: any) => {
     const containerStyle = [
       styles.chatBubbleContainer,
       isHuman
@@ -107,10 +49,60 @@ export default function ChatMessagesList({
         )}
       </View>
     );
-  };
+  });
+
+  const styles = useMemo(
+    () =>
+      StyleSheet.create({
+        messagesContainer: {
+          width: "100%",
+          paddingTop: 16,
+          paddingBottom: 8,
+        },
+        chatBubbleContainer: {
+          maxWidth: "80%",
+          padding: 8,
+          borderRadius: 12,
+          marginHorizontal: 10,
+          marginTop: 8,
+          paddingHorizontal: 10,
+          marginBottom: 8,
+        },
+        outgoingChatBubbleContainer: {
+          backgroundColor: theme.palette.primary,
+          alignSelf: "flex-end",
+        },
+        incomingChatBubbleContainer: {
+          alignSelf: "flex-start",
+          backgroundColor: theme.palette.secondary,
+        },
+        chatBubbleText: {
+          color: theme.palette.text.primary,
+          fontSize: 16,
+        },
+        outgoingChatBubbleText: {
+          color: theme.palette.text.primary,
+        },
+        incomingChatBubbleText: {
+          color: theme.palette.text.primary,
+        },
+        chatBubbleTimestamp: {
+          fontSize: 12,
+          alignSelf: "flex-end",
+          marginTop: 2,
+        },
+        outgoingChatBubbleTimestamp: {
+          color: theme.palette.text.secondary,
+        },
+        incomingChatBubbleTimestamp: {
+          color: theme.palette.text.hintColor,
+        },
+      }),
+    [theme]
+  );
 
   const renderItem = ({ item }: any) => {
-    return <ChatBubble message={item} isHuman={item.isHuman} />;
+    return <ChatBubble message={item} isHuman={item.isHuman} theme={theme} />;
   };
 
   return (

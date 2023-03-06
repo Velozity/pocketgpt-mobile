@@ -183,8 +183,6 @@ const Chat = ({ route, navigation }: any) => {
         }
       })
       .then((fullResponse) => {
-        console.log("full response:");
-        console.log(fullResponse);
         const { text, title, createdAt } = fullResponse;
         if (title) {
           typeWrite(title, 50, setTitle);

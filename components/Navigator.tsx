@@ -26,16 +26,6 @@ import { TouchableOpacity } from "react-native";
 const Stack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
-function HomeStack() {
-  return (
-    <Drawer.Navigator
-      drawerContent={(props) => <HomeDrawerContent {...props} />}
-    >
-      <Drawer.Screen name="Home" component={Home} />
-      <Drawer.Screen name="FAQ" component={FAQ} />
-    </Drawer.Navigator>
-  );
-}
 
 function HomeDrawerContent(props: any) {
   const { theme, toggleTheme } = useTheme();
@@ -98,6 +88,24 @@ function HomeDrawerContent(props: any) {
 
 export default function Navigator() {
   const { account, loading } = useAccount();
+  const { theme } = useTheme();
+  function HomeStack() {
+    return (
+      <Drawer.Navigator
+        drawerContent={(props) => <HomeDrawerContent {...props} />}
+        screenOptions={{
+          drawerActiveTintColor: theme.palette.primary,
+          drawerLabelStyle: {
+            color: theme.palette.text.primary,
+          },
+          drawerItemStyle: { borderRadius: 5 },
+        }}
+      >
+        <Drawer.Screen name="Home" component={Home} />
+        <Drawer.Screen name="FAQ" component={FAQ} />
+      </Drawer.Navigator>
+    );
+  }
 
   return (
     <Stack.Navigator>

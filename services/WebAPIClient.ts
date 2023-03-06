@@ -52,12 +52,10 @@ export default class WebAPIClient {
       const dataHandler = (data: string) => {
         try {
           const parsed = JSON.parse(data);
-          console.log(parsed);
           if (parsed.type === "partial") {
             onPartial(parsed.text, count);
             count++;
           } else if (parsed.type === "complete") {
-            console.log("ended");
             resolve(parsed);
           }
         } catch (err) {
