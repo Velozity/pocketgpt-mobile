@@ -18,13 +18,22 @@
       "supportsTablet": true
     },
     "android": {
+      "permissions": [
+        "android.permission.INTERNET"
+      ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.velozity.pocketgpt"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "scheme": "myapp",
+    "plugins": [
+      "react-native-iap"
+    ]
   }
 }
