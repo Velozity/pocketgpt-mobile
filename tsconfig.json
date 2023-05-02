@@ -20,9 +20,6 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
       "@app/*": [
         "./app/*"
       ],
@@ -40,7 +37,10 @@
       ],
       "@utils/*": [
         "./utils/*"
-    ]
+      ],
+      "@assets/*": [
+          "./assets/*"
+      ]
     }
   },
   "include": [

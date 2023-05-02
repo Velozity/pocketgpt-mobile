@@ -19,9 +19,9 @@ export type ITheme = {
 export const darkTheme: ITheme = {
   mode: "dark",
   palette: {
-    primary: "#487FD2", // Discord blue
-    secondary: "#2C2F36",
-    background: "#202225", // darker background
+    primary: "#C38FFF", // Discord blue
+    secondary: "#1E1E1E",
+    background: "#121212", // darker background
     codeHeader: "#1F2326",
     code: "#101417",
     text: {

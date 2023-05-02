@@ -1,4 +1,5 @@
 import { IAccount } from "@providers/AccountProvider";
+import EventSource from "react-native-event-source";
 
 type ILoginResponse = {
   success?: boolean;
@@ -19,10 +20,8 @@ export default class WebAPIClient {
   private accessToken?: string;
 
   constructor(accessToken?: string) {
-    this.baseURL =
-      process.env.NODE_ENV === "development"
-        ? "http://192.168.0.11:3000/api"
-        : "https://pocketgpt.velozity.dev/api";
+    //this.baseURL = "https://pocketgpt.velozity.dev/api";
+    this.baseURL = "http://192.168.0.11:3000/api";
     this.accessToken = accessToken;
   }
 
@@ -48,17 +47,16 @@ export default class WebAPIClient {
       }
       xhr.setRequestHeader("Accept", "text/event-stream");
       xhr.timeout = 0;
-      let count = 1;
       const dataHandler = (data: string) => {
         try {
           const parsed = JSON.parse(data);
           if (parsed.type === "partial") {
-            onPartial(parsed.text, count);
-            count++;
+            onPartial(parsed.text, parsed.index);
           } else if (parsed.type === "complete") {
             resolve(parsed);
           }
         } catch (err) {
+          console.log(data);
           console.log(err);
         }
       };
@@ -67,13 +65,12 @@ export default class WebAPIClient {
         reject();
       };
 
+      let counter = 0;
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 3) {
-          const data = xhr.responseText.trim();
-          if (data.length > 0) {
-            const line = data.split("\n\n").pop();
-
-            if (line && line.trim() !== "") {
+          const lines = xhr.responseText.trim().split("\n\n");
+          for (const line of lines) {
+            if (line.trim() !== "") {
               dataHandler(line);
             }
           }
@@ -85,7 +82,11 @@ export default class WebAPIClient {
     });
   }
 
-  async sendMessage(chatId: string, text: string, onPartial: any) {
+  async sendMessage(
+    chatId: string,
+    text: string,
+    onPartial: (msg: string, index: number) => void
+  ) {
     return this.postMessageSSE(`/chat/${chatId}/message`, { text }, onPartial);
   }
 
@@ -136,7 +137,7 @@ export default class WebAPIClient {
   }
 
   async me() {
-    return await this.get("/me");
+    return await this.get("/me").catch((e) => e);
   }
 
   async get(endpoint: string): Promise<any> {

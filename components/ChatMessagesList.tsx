@@ -22,7 +22,11 @@ export default function ChatMessagesList({
       return (
         <View>
           <Text
-            style={{ textAlign: "center", color: theme.palette.text.hintColor }}
+            style={{
+              textAlign: "center",
+              color: theme.palette.text.hintColor,
+              fontSize: 12,
+            }}
           >
             Conversation started{" "}
             {parseIsoTimestampToChatTime(message.createdAt)}

@@ -12,7 +12,7 @@ import { useAccount } from "@providers/AccountProvider";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { useTheme } from "@providers/ThemeProvider";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Image } from "react-native";
 import { Switch } from "react-native-gesture-handler";
 import {
   TransitionPresets,
@@ -22,6 +22,10 @@ import Splash from "@app/Splash";
 import FAQ from "@app/FAQ";
 import Register from "@app/Register";
 import { TouchableOpacity } from "react-native";
+import Account from "@app/Account";
+
+import darkLogo from "../assets/logo-h-dark.png";
+import lightLogo from "../assets/logo-h-light.png";
 
 const Stack = createStackNavigator();
 
@@ -64,7 +68,10 @@ function HomeDrawerContent(props: any) {
       {...props}
     >
       <View style={styles.container}>
-        <Text style={styles.headerText}>PocketGPT</Text>
+        <Image
+          source={theme.mode === "light" ? lightLogo : darkLogo}
+          style={{ width: 120, height: 28 }}
+        />
       </View>
       <DrawerItemList {...props} />
       <View style={styles.container}>
@@ -103,6 +110,7 @@ export default function Navigator() {
       >
         <Drawer.Screen name="Home" component={Home} />
         <Drawer.Screen name="FAQ" component={FAQ} />
+        <Drawer.Screen name="My Account" component={Account} />
       </Drawer.Navigator>
     );
   }

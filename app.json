@@ -9,7 +9,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#202225"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -23,7 +23,7 @@
       ],
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#202225"
       },
       "package": "com.velozity.pocketgpt"
     },
@@ -34,6 +34,11 @@
     "scheme": "myapp",
     "plugins": [
       "react-native-iap"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e66797e8-e3ac-43e3-9b70-862140248055"
+      }
+    }
   }
 }

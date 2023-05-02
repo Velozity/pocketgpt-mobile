@@ -164,7 +164,8 @@ const Chat = ({ route, navigation }: any) => {
 
     authenticatedApi
       ?.sendMessage(chat.id || chatId, text, (msg: string, index: number) => {
-        if (index === 1) {
+        console.log({ msg, index });
+        if (index === 0) {
           const newMsg = {
             typing: true,
             isHuman: false,
@@ -200,7 +201,9 @@ const Chat = ({ route, navigation }: any) => {
         });
         setWaitingForResponse(false);
       })
-      .catch(() => {
+      .catch((e) => {
+        console.log(e);
+        console.log("error");
         setWaitingForResponse(false);
       });
     setText("");
